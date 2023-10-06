@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:GabletUI.ViewModels"
+             xmlns:views="clr-namespace:GabletUI.Views"
+             xmlns:i="https://github.com/projektanker/icons.avalonia"
+             xmlns:local="clr-namespace:GabletUI"
+             xmlns:props="clr-namespace:GabletUI.Models"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
+             x:Class="GabletUI.Views.HomeView"
+             x:DataType="vm:HomeViewModel"
+             Background="{DynamicResource SurfaceGroundColor}">
+    <Design.DataContext>
+        <vm:HomeViewModel />
+    </Design.DataContext>
+
+    <Border>
+        <DockPanel>
+            <views:HeaderView DockPanel.Dock="Top" />
+            <DockPanel DockPanel.Dock="Top"
+                       Name="DesktopView">
+                <TextBlock Text="Desktop" />
+            </DockPanel>
+
+
+            <DockPanel DockPanel.Dock="Top"
+                       Name="MobileView">
+                <TextBlock Text="Mobile" DockPanel.Dock="Top" />
+                <views:MobileNavBar DockPanel.Dock="Bottom"
+                                    TabSelected="{Binding OnTabSelected}"
+                                    Tabs="{Binding Tabs}"/>
+            </DockPanel>
+        </DockPanel>
+    </Border>
+</UserControl>

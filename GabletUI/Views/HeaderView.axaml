@@ -1,0 +1,76 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="https://github.com/projektanker/icons.avalonia"
+             mc:Ignorable="d" d:DesignWidth="800"
+             x:Class="GabletUI.Views.HeaderView">
+    <UserControl.Styles>
+        <Style Selector="Border.headerBar">
+            <Setter Property="Background" Value="#cdb9fb" />
+        </Style>
+        <Style Selector="Border.headerBar TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource HighlightTextColor}" />
+        </Style>
+        <Style Selector="Button.icon:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource ButtonHoverColor}" />
+            <Setter Property="Foreground" Value="#b79af9" />
+        </Style>
+        <Style Selector="Button.icon:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource ButtonClickedColor}" />
+            <Setter Property="Foreground" Value="#b79af9" />
+        </Style>
+        <Style Selector="Button.icon">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource HighlightTextColor}" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+    </UserControl.Styles>
+    
+    <Border Classes="headerBar">
+        <StackPanel>
+            <DockPanel Name="DesktopView"
+                       MaxWidth="1200">
+                <TextBlock DockPanel.Dock="Left" 
+                           VerticalAlignment="Center"
+                           Margin="30 5 5 5"
+                           FontWeight="Bold"
+                           FontSize="32">
+                    Gablet
+                </TextBlock>
+                <Button DockPanel.Dock="Right"
+                        HorizontalAlignment="Right"
+                        Classes="icon">
+                    <i:Icon Value="fa-solid fa-user" />
+                </Button>
+                <Button DockPanel.Dock="Right"
+                        HorizontalAlignment="Right"
+                        Classes="icon">
+                    <i:Icon Value="fa-solid fa-bell" />
+                </Button>
+                <Button DockPanel.Dock="Right"
+                        HorizontalAlignment="Right"
+                        Classes="icon">
+                    <i:Icon Value="fa-solid fa-magnifying-glass" />
+                </Button>
+            </DockPanel>
+            
+            <DockPanel Name="MobileView">
+                <TextBlock DockPanel.Dock="Left"
+                           VerticalAlignment="Center"
+                           Margin="30 5 5 5"
+                           FontWeight="Bold"
+                           FontSize="32">
+                    Gablet
+                </TextBlock>
+                <Button DockPanel.Dock="Right"
+                        HorizontalAlignment="Right"
+                        Classes="icon">
+                    <i:Icon Value="fa-solid fa-magnifying-glass" />
+                </Button>
+            </DockPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

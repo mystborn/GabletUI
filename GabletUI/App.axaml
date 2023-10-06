@@ -1,0 +1,78 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:GabletUI"
+             xmlns:props="clr-namespace:GabletUI.Models"
+             x:Class="GabletUI.App"
+             RequestedThemeVariant="Light">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+    <Application.Resources>
+        <ResourceDictionary>
+            <props:IndexEqualityConverter x:Key="MyIndexEqualityConverter" />
+            <props:TabIndexColorConverter x:Key="TabIndexColorConverter" />
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="TextColor">#495057</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextColorSecondary">#6C757D</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryColor">#8B5CF6</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryTextColor">#ffffff</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryColor">#64748B</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryTextColor">#ffffff</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonHoverColor">#7C3AED</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonClickedColor">#7E22CE</SolidColorBrush>
+                    <SolidColorBrush x:Key="HighlightColor">#F5F3FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="HighlightTextColor">#6D28D9</SolidColorBrush>
+                    <SolidColorBrush x:Key="SurfaceGroundColor">#eff3f8</SolidColorBrush>
+                    <SolidColorBrush x:Key="SurfaceSectionColor">#ffffff</SolidColorBrush>
+                    <SolidColorBrush x:Key="SurfaceCardColor">#ffffff</SolidColorBrush>
+                    <SolidColorBrush x:Key="SurfaceOverlayColor">#ffffff</SolidColorBrush>
+                    <SolidColorBrush x:Key="SurfaceBorderColor">#dfe7ef</SolidColorBrush>
+                    <SolidColorBrush x:Key="SurfaceHoverColor">#f6f9fc</SolidColorBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="TextColor">#495057</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextColorSecondary">#6C757D</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryColor">#8B5CF6</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryTextColor">#ffffff</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryColor">#64748B</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryTextColor">#ffffff</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonHoverColor">#7C3AED</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonClickedColor">#7E22CE</SolidColorBrush>
+                    <SolidColorBrush x:Key="HighlightColor">#F5F3FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="HighlightTextColor">#6D28D9</SolidColorBrush>
+                    <SolidColorBrush x:Key="SurfaceGroundColor">#eff3f8</SolidColorBrush>
+                    <SolidColorBrush x:Key="SurfaceSectionColor">#ffffff</SolidColorBrush>
+                    <SolidColorBrush x:Key="SurfaceCardColor">#ffffff</SolidColorBrush>
+                    <SolidColorBrush x:Key="SurfaceOverlayColor">#ffffff</SolidColorBrush>
+                    <SolidColorBrush x:Key="SurfaceBorderColor">#dfe7ef</SolidColorBrush>
+                    <SolidColorBrush x:Key="SurfaceHoverColor">#f6f9fc</SolidColorBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+    <Application.Styles>
+        <Style Selector="Button:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource ButtonHoverColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryColorText}" />
+        </Style>
+        <Style Selector="Button:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource ButtonClickedColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryColorText}" />
+        </Style>
+        <Style Selector="Button:disabled">
+            <Setter Property="Background" Value="{DynamicResource SecondaryColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SecondaryColorText}" />
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="Background" Value="{DynamicResource PrimaryColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryColorText}" />
+        </Style>
+    </Application.Styles>
+</Application>
