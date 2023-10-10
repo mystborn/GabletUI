@@ -15,6 +15,7 @@ namespace GabletUI.Models
         private bool _enabled;
         private Dock _titlePosition;
         private int _index;
+        private object? _context;
 
         public string? Icon
         {
@@ -46,13 +47,20 @@ namespace GabletUI.Models
             set => this.RaiseAndSetIfChanged(ref _index, value);
         }
 
-        public TabItemModel(string? icon = null, string? title = null, bool enabled = true, Dock titlePosition = Dock.Bottom, int index = 0)
+        public object? Context
+        {
+            get => _context;
+            set => this.RaiseAndSetIfChanged(ref _context, value);
+        }
+
+        public TabItemModel(string? icon = null, string? title = null, bool enabled = true, Dock titlePosition = Dock.Bottom, int index = 0, object? context = null)
         {
             _icon = icon;
             _title = title;
             _enabled = enabled;
             _titlePosition = titlePosition;
             _index = index;
+            _context = context;
         }
     }
 }

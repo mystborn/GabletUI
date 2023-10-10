@@ -1,11 +1,12 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using GabletUI.ViewModels;
+using ReactiveUI;
 using System;
 
 namespace GabletUI
 {
-    public class ViewLocator : IDataTemplate
+    public class ViewLocator : IDataTemplate, IViewLocator
     {
         public Control? Build(object? data)
         {
@@ -26,6 +27,15 @@ namespace GabletUI
         public bool Match(object? data)
         {
             return data is ViewModelBase;
+        }
+
+        public IViewFor? ResolveView<T>(T? viewModel, string? contract = null)
+        {
+            Control? viewFor = Build(viewModel);
+            if (viewFor is not null)
+                viewFor.DataContext = viewModel;
+
+            return viewFor as IViewFor;
         }
     }
 }

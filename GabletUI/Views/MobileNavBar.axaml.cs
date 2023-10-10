@@ -64,7 +64,7 @@ public partial class MobileNavBar : UserControl
 
         if(TabSelected?.CanExecute(index) == true)
         {
-            TabSelected.Execute(index);
+            TabSelected.Execute(control.DataContext);
         }
     }
 }

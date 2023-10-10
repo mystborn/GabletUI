@@ -16,19 +16,25 @@ namespace GabletUI.Views
         public const int Medium = 992;
         public const int Large = 1200;
 
-        public static void SetupDynamicView(this Control parent, Control desktop, Control mobile)
+        public static void SetupDynamicView(this Control parent, Control? desktop, Control? mobile)
         {
             parent.EffectiveViewportChanged += (s, e) =>
             {
                 if ((parent.GetVisualRoot()?.ClientSize.Width ?? Large) < Small)
                 {
-                    mobile.IsVisible = true;
-                    desktop.IsVisible = false;
+                    if (mobile is not null)
+                        mobile.IsVisible = true;
+
+                    if (desktop is not null)
+                        desktop.IsVisible = false;
                 }
                 else
                 {
-                    mobile.IsVisible = false;
-                    desktop.IsVisible = true;
+                    if (mobile is not null)
+                        mobile.IsVisible = false;
+
+                    if(desktop is not null)
+                        desktop.IsVisible = true;
                 }
             };
         }

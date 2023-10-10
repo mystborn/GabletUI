@@ -49,10 +49,16 @@ namespace GabletUI
                 .AddSingleton<HttpClient>()
                 .AddSingleton<IStorage>(_storageMechanism)
                 .AddSingleton(_navigationService)
-                .AddSingleton<AuthStore>(provider => new AuthStore(provider.GetService<IStorage>()!))
-                .AddSingleton<IAccountService>(provider => new AccountService(
-                    provider.GetService<HttpClient>()!,
-                    provider.GetService<AuthStore>()!));
+                .AddSingleton<AuthStore>(provider => {
+                    return new AuthStore(provider.GetService<IStorage>()!);
+                })
+                .AddSingleton<IAccountService>(provider => {
+                    var client = provider.GetService<HttpClient>();
+                    var store = provider.GetService<AuthStore>();
+                    return new AccountService(
+                        provider.GetService<HttpClient>()!,
+                        provider.GetService<AuthStore>()!);
+                    });
             //.AddSingleton<IProfileService>(provider => null);
 
             services

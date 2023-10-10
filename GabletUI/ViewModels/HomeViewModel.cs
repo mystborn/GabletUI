@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GabletUI.ViewModels
 {
-    public class HomeViewModel : ViewModelBase
+    public class HomeViewModel : ViewModelBase, IScreen
     {
         private int _selectedIndex = 0;
 
@@ -23,22 +23,32 @@ namespace GabletUI.ViewModels
 
         public ObservableCollection<TabItemModel> Tabs { get; } = new()
         {
-            new TabItemModel("fa-solid fa-house", index: 0),
-            new TabItemModel("fa-solid fa-user", index: 1),
-            new TabItemModel("fa-solid fa-bell", index: 2),
-            new TabItemModel("fa-solid fa-magnifying-glass", index: 3)
+            
         };
 
         public ReactiveCommand<object, Unit> OnTabSelected { get; private set; }
 
+        public RoutingState Router { get; } = new RoutingState();
+
         public HomeViewModel()
         {
-            OnTabSelected = ReactiveCommand.Create<object>(tab =>
+            OnTabSelected = ReactiveCommand.Create<object>(obj =>
             {
-                Console.WriteLine(tab);
+                var tab = (TabItemModel)obj;
+                Router.NavigateAndReset.Execute((IRoutableViewModel)tab.Context);
             });
 
-            var canExecute = OnTabSelected.CanExecute.FirstAsync().Wait();
+            var home = new ComicsViewModel(this);
+
+            Tabs = new ObservableCollection<TabItemModel>()
+            {
+                new TabItemModel("fa-solid fa-house", index: 0, context: home),
+                new TabItemModel("fa-solid fa-user", index: 1, context: new ProfileViewModel(this)),
+                new TabItemModel("fa-solid fa-bell", index: 2, context: new NotificationsViewModel(this)),
+                new TabItemModel("fa-solid fa-magnifying-glass", index: 3, context: new SearchViewModel(this))
+            };
+
+            Router.NavigateAndReset.Execute(home);
         }
     }
 }

@@ -9,7 +9,6 @@
              xmlns:props="clr-namespace:GabletUI.Models"
              mc:Ignorable="d" d:DesignWidth="450"
              x:Class="GabletUI.Views.MobileNavBar"
-             x:DataType="vm:MobileNavBarViewModel"
              x:Name="mobileNavBar">
     <UserControl.Styles>
         <Style Selector="Button.icon:pointerover /template/ ContentPresenter">

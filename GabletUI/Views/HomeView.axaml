@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:GabletUI.ViewModels"
              xmlns:views="clr-namespace:GabletUI.Views"
+             xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
              xmlns:i="https://github.com/projektanker/icons.avalonia"
              xmlns:local="clr-namespace:GabletUI"
              xmlns:props="clr-namespace:GabletUI.Models"
@@ -16,21 +17,22 @@
     </Design.DataContext>
 
     <Border>
-        <DockPanel>
+        <DockPanel LastChildFill="True">
             <views:HeaderView DockPanel.Dock="Top" />
-            <DockPanel DockPanel.Dock="Top"
-                       Name="DesktopView">
-                <TextBlock Text="Desktop" />
-            </DockPanel>
-
-
-            <DockPanel DockPanel.Dock="Top"
-                       Name="MobileView">
-                <TextBlock Text="Mobile" DockPanel.Dock="Top" />
-                <views:MobileNavBar DockPanel.Dock="Bottom"
-                                    TabSelected="{Binding OnTabSelected}"
-                                    Tabs="{Binding Tabs}"/>
-            </DockPanel>
+            <views:MobileNavBar Name="MobileNavBar"
+                                DockPanel.Dock="Bottom"
+                                TabSelected="{Binding OnTabSelected}"
+                                Tabs="{Binding Tabs}"/>
+            <rxui:RoutedViewHost Router="{Binding Router}"
+                                 PageTransition="{x:Null}"
+                                 DockPanel.Dock="Top">
+                <rxui:RoutedViewHost.DefaultContent>
+                    <TextBlock Text="Loading" />
+                </rxui:RoutedViewHost.DefaultContent>
+                <rxui:RoutedViewHost.ViewLocator>
+                    <local:ViewLocator />
+                </rxui:RoutedViewHost.ViewLocator>
+            </rxui:RoutedViewHost>
         </DockPanel>
     </Border>
 </UserControl>

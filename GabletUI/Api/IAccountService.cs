@@ -13,5 +13,6 @@ namespace GabletUI.Api
         public Task<bool> ValidateAccount(string token, string username);
         public Task<UserModel> Login(string username, string password);
         public Task Refresh(string refreshToken);
+        public Task<string> Test();
     }
 }

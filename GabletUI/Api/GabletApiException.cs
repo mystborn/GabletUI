@@ -8,9 +8,10 @@ namespace GabletUI.Api
 {
     public class GabletApiException : Exception
     {
-        public IResponse Response { get; }
+        public ErrorResponse Response { get; }
 
-        public GabletApiException(IResponse response)
+        public GabletApiException(ErrorResponse response)
+            : base(response.ErrorMessage)
         {
             Response = response;
         }

@@ -13,15 +13,15 @@ namespace GabletUI.Desktop
     public class DesktopStorage : IStorage
     {
         private string _filePath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
-            "Gablet", 
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "Gablet",
             "Data.toml");
 
         private TomlTable _settings;
 
         public DesktopStorage()
         {
-            if(!Directory.Exists(Path.GetDirectoryName(_filePath)))
+            if (!Directory.Exists(Path.GetDirectoryName(_filePath)))
                 Directory.CreateDirectory(Path.GetDirectoryName(_filePath)!);
 
             if (!File.Exists(_filePath))
@@ -33,27 +33,83 @@ namespace GabletUI.Desktop
             _settings = Toml.ToModel(settings, _filePath);
         }
 
-        public byte GetByte(string key) => (byte)_settings[key];
+        public byte GetByte(string key)
+        {
+            if (_settings.TryGetValue(key, out var result))
+                return (byte)result;
 
-        public double GetDouble(string key) => (double)_settings[key];
+            return default;
+        }
 
-        public float GetFloat(string key) => (float)_settings[key];
+        public double GetDouble(string key)
+        {
+            if (_settings.TryGetValue(key, out var result))
+                return (double)result;
+            return default;
+        }
 
-        public int GetInt(string key) => (int)_settings[key];
+        public float GetFloat(string key)
+        {
+            if (_settings.TryGetValue(key, out var result))
+                return (float)result;
+            return default;
+        }
 
-        public long GetLong(string key) => (long)_settings[key];
+        public int GetInt(string key)
+        {
+            if (_settings.TryGetValue(key, out var result))
+                return (int)result;
+            return default;
+        }
 
-        public sbyte GetSByte(string key) => (sbyte)_settings[key];
+        public long GetLong(string key)
+        {
+            if (_settings.TryGetValue(key, out var result))
+                return (long)result;
+            return default;
+        }
 
-        public short GetShort(string key) => (short)_settings[key];
+        public sbyte GetSByte(string key)
+        {
+            if (_settings.TryGetValue(key, out var result))
+                return (sbyte)result;
+            return default;
+        }
 
-        public string GetString(string key) => (string)_settings[key];
+        public short GetShort(string key)
+        {
+            if (_settings.TryGetValue(key, out var result))
+                return (short)result;
+            return default;
+        }
 
-        public uint GetUInt(string key) => (uint)_settings[key];
+        public string GetString(string key)
+        {
+            if (_settings.TryGetValue(key, out var result))
+                return (string)result;
+            return default;
+        }
 
-        public ulong GetULong(string key) => (ulong)_settings[key];
+        public uint GetUInt(string key)
+        {
+            if (_settings.TryGetValue(key, out var result))
+                return (uint)result;
+            return default;
+        }
 
-        public ushort GetUShort(string key) => (ushort)_settings[key];
+        public ulong GetULong(string key)
+        {
+            if (_settings.TryGetValue(key, out var result))
+                return (ulong)result;
+            return default;
+        }
+
+        public ushort GetUShort(string key)
+        {
+            if (_settings.TryGetValue(key, out var result))
+                return (ushort)result;
+            return default;
+        }
 
         public void Set(string key, string value)
         {

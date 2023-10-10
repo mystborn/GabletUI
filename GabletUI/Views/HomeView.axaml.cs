@@ -15,7 +15,7 @@ public partial class HomeView : UserControl
     {
         DataContext = App.Services.GetService<HomeViewModel>();
         InitializeComponent();
-        this.SetupDynamicView(DesktopView, MobileView);
+        this.SetupDynamicView(null, MobileNavBar);
     }
 
     public void TabIconClicked(object sender, RoutedEventArgs args)

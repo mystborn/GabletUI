@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:GabletUI.ViewModels"
+             xmlns:views="clr-namespace:GabletUI.Views"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
+             x:Class="GabletUI.Views.SignInView"
+             x:DataType="vm:SignInViewModel">
+    <UserControl.Styles>
+        <Style Selector="Button.link:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="Blue" />
+        </Style>
+        <Style Selector="Button.link:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="Blue" />
+        </Style>
+        <Style Selector="Button.link">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="Blue" />
+        </Style>
+    </UserControl.Styles>
+    <Border Background="{DynamicResource SurfaceSectionColor}"
+            MaxWidth="400"
+            CornerRadius="20">
+        <StackPanel Margin="20">
+            <TextBlock Text="Username or Email:" 
+                       FontSize="20"
+                       Margin="0 5"/>
+            <TextBox Watermark="Username"
+                     Text="{Binding Username}"
+                     FontSize="20"
+                     Margin="0 5"/>
+            <TextBlock Text="Password: "
+                       FontSize="20"
+                       Margin="0 5"/>
+            <TextBox Watermark="Password"
+                     Text="{Binding Password}"
+                     FontSize="20"
+                     Margin="0 5" />
+
+            <TextBlock 
+                Text="{Binding Error}" 
+                Foreground="Red" 
+                FontSize="16"
+                IsVisible="{Binding IsErrorVisible} "/>
+            <Button FontSize="20" 
+                    HorizontalAlignment="Center" 
+                    Margin="0 30"
+                    Padding="30 10"
+                    Command="{Binding SignIn}">
+                Sign In
+            </Button>
+            <Button Classes="link">
+                Register New  Account
+            </Button>
+            <Button Classes="link">
+                Forgot Password
+            </Button>
+        </StackPanel>
+    </Border>
+</UserControl>
