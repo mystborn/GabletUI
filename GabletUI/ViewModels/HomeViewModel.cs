@@ -35,20 +35,20 @@ namespace GabletUI.ViewModels
             OnTabSelected = ReactiveCommand.Create<object>(obj =>
             {
                 var tab = (TabItemModel)obj;
-                Router.NavigateAndReset.Execute((IRoutableViewModel)tab.Context);
+                var view = tab.GetView?.Invoke();
+                if(view is not null)
+                    Router.NavigateAndReset.Execute(view);
             });
 
-            var home = new ComicsViewModel(this);
+            Tabs =
+            [
+                new("fa-solid fa-house", index: 0, getView: () => new ComicsViewModel(this)),
+                new("fa-solid fa-user", index: 1, getView: () => new ProfileViewModel(this)),
+                new("fa-solid fa-bell", index: 2, getView: () => new NotificationsViewModel(this)),
+                new("fa-solid fa-magnifying-glass", index: 3, getView: () => new SearchViewModel(this))
+            ];
 
-            Tabs = new ObservableCollection<TabItemModel>()
-            {
-                new TabItemModel("fa-solid fa-house", index: 0, context: home),
-                new TabItemModel("fa-solid fa-user", index: 1, context: new ProfileViewModel(this)),
-                new TabItemModel("fa-solid fa-bell", index: 2, context: new NotificationsViewModel(this)),
-                new TabItemModel("fa-solid fa-magnifying-glass", index: 3, context: new SearchViewModel(this))
-            };
-
-            Router.NavigateAndReset.Execute(home);
+            Router.NavigateAndReset.Execute(Tabs[0].GetView!());
         }
     }
 }

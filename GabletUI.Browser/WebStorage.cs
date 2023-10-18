@@ -1,4 +1,4 @@
-﻿using GabletUI.Store;
+﻿using GabletUI.Services.Store;
 using System.Runtime.InteropServices.JavaScript;
 
 namespace GabletUI.Browser

@@ -1,4 +1,4 @@
-﻿using GabletUI.Store;
+﻿using GabletUI.Services.Store;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,7 +36,7 @@ namespace GabletUI.Desktop
         public byte GetByte(string key)
         {
             if (_settings.TryGetValue(key, out var result))
-                return (byte)result;
+                return Convert.ToByte(result);
 
             return default;
         }
@@ -44,70 +44,70 @@ namespace GabletUI.Desktop
         public double GetDouble(string key)
         {
             if (_settings.TryGetValue(key, out var result))
-                return (double)result;
+                return Convert.ToDouble(result);
             return default;
         }
 
         public float GetFloat(string key)
         {
             if (_settings.TryGetValue(key, out var result))
-                return (float)result;
+                return Convert.ToSingle(result);
             return default;
         }
 
         public int GetInt(string key)
         {
             if (_settings.TryGetValue(key, out var result))
-                return (int)result;
+                return Convert.ToInt32(result);
             return default;
         }
 
         public long GetLong(string key)
         {
             if (_settings.TryGetValue(key, out var result))
-                return (long)result;
+                return Convert.ToInt64(result);
             return default;
         }
 
         public sbyte GetSByte(string key)
         {
             if (_settings.TryGetValue(key, out var result))
-                return (sbyte)result;
+                return Convert.ToSByte(result);
             return default;
         }
 
         public short GetShort(string key)
         {
             if (_settings.TryGetValue(key, out var result))
-                return (short)result;
+                return Convert.ToInt16(result);
             return default;
         }
 
         public string GetString(string key)
         {
             if (_settings.TryGetValue(key, out var result))
-                return (string)result;
-            return default;
+                return result.ToString()!;
+            return string.Empty;
         }
 
         public uint GetUInt(string key)
         {
             if (_settings.TryGetValue(key, out var result))
-                return (uint)result;
+                return Convert.ToUInt32(result);
             return default;
         }
 
         public ulong GetULong(string key)
         {
             if (_settings.TryGetValue(key, out var result))
-                return (ulong)result;
+                return Convert.ToUInt64(result);
             return default;
         }
 
         public ushort GetUShort(string key)
         {
             if (_settings.TryGetValue(key, out var result))
-                return (ushort)result;
+                return Convert.ToUInt16(result);
             return default;
         }
 

@@ -13,7 +13,6 @@ public partial class HomeView : UserControl
 {
     public HomeView()
     {
-        DataContext = App.Services.GetService<HomeViewModel>();
         InitializeComponent();
         this.SetupDynamicView(null, MobileNavBar);
     }

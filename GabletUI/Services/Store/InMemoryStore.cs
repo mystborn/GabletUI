@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GabletUI.Store
+namespace GabletUI.Services.Store
 {
     public class InMemoryStore : IStorage
     {

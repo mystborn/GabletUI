@@ -15,7 +15,7 @@ namespace GabletUI.Models
         private bool _enabled;
         private Dock _titlePosition;
         private int _index;
-        private object? _context;
+        private Func<IRoutableViewModel>? _getView;
 
         public string? Icon
         {
@@ -47,20 +47,20 @@ namespace GabletUI.Models
             set => this.RaiseAndSetIfChanged(ref _index, value);
         }
 
-        public object? Context
+        public Func<IRoutableViewModel>? GetView
         {
-            get => _context;
-            set => this.RaiseAndSetIfChanged(ref _context, value);
+            get => _getView;
+            set => this.RaiseAndSetIfChanged(ref _getView, value);
         }
 
-        public TabItemModel(string? icon = null, string? title = null, bool enabled = true, Dock titlePosition = Dock.Bottom, int index = 0, object? context = null)
+        public TabItemModel(string? icon = null, string? title = null, bool enabled = true, Dock titlePosition = Dock.Bottom, int index = 0, Func<IRoutableViewModel>? getView = null)
         {
             _icon = icon;
             _title = title;
             _enabled = enabled;
             _titlePosition = titlePosition;
             _index = index;
-            _context = context;
+            _getView = getView;
         }
     }
 }

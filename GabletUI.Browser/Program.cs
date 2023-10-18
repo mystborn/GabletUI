@@ -14,7 +14,7 @@ internal partial class Program
 {
     private static async Task Main(string[] args)
     {
-        Console.WriteLine(string.Join(", ", args));
+        Console.WriteLine(BrowserNavigationService.GetUrlParams());
 
         App.ConfigureStorage(new WebStorage());
         App.ConfigureNavigation(new BrowserNavigationService());

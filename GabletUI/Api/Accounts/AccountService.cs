@@ -5,10 +5,11 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
-using GabletUI.Store;
 using GabletUI.Api.Accounts.Requests;
 using GabletUI.Api.Accounts.Responses;
 using GabletUI.Api.Models;
+using System.IdentityModel.Tokens.Jwt;
+using GabletUI.Services.Store;
 
 namespace GabletUI.Api.Accounts
 {
@@ -20,12 +21,14 @@ namespace GabletUI.Api.Accounts
         private const string REFRESH = $"{ApiPaths.AUTH_SERVER}/api/refresh";
         private const string PING = $"{ApiPaths.AUTH_SERVER}/api/ping";
 
+        private JwtSecurityTokenHandler _jwtHandler = new JwtSecurityTokenHandler();
+
         public AccountService(HttpClient httpClient, AuthStore auth)
             : base(httpClient, auth, null)
         {
         }
 
-        public async Task<UserModel> Register(string username, string email, string password)
+        public async Task Register(string username, string email, string password)
         {
             var request = new RegisterRequest(username, email, password);
 
@@ -34,8 +37,6 @@ namespace GabletUI.Api.Accounts
                 throw new GabletApiException(response.Error);
 
             SetAuthValues(response);
-
-            return new UserModel(response.Username!, response.UserId);
         }
 
         public async Task<bool> ValidateAccount(string token, string username)
@@ -48,7 +49,7 @@ namespace GabletUI.Api.Accounts
             return response.Success;
         }
 
-        public async Task<UserModel> Login(string username, string password)
+        public async Task Login(string username, string password)
         {
             var request = new LoginRequest(username, password);
             var response = await PostResource<LoginResponse, LoginRequest>(LOGIN, request);
@@ -56,8 +57,6 @@ namespace GabletUI.Api.Accounts
                 throw new GabletApiException(response.Error);
 
             SetAuthValues(response);
-
-            return new UserModel(response.Username!, response.UserId);
         }
 
         public async Task Refresh(string token)
@@ -77,12 +76,16 @@ namespace GabletUI.Api.Accounts
 
         private void SetAuthValues(LoginResponse login)
         {
-            Auth.Username = login.Username!;
+            var access = _jwtHandler.ReadJwtToken(login.AccessToken);
+            var refresh = _jwtHandler.ReadJwtToken(login.RefreshToken);
+            var id = access.Payload["user_id"];
+
+            Auth.Username = access.Subject!;
             Auth.RefreshToken = login.RefreshToken!;
             Auth.AccessToken = login.AccessToken!;
-            Auth.RefreshExpires = login.RefreshExpires;
-            Auth.LoginExpires = login.AccessExpires;
-            Auth.UserId = login.UserId;
+            Auth.RefreshExpires = (ulong)((DateTimeOffset)refresh.ValidTo).ToUnixTimeSeconds();
+            Auth.LoginExpires = (ulong)((DateTimeOffset)access.ValidTo).ToUnixTimeSeconds();
+            Auth.UserId = (int)id;
         }
     }
 }

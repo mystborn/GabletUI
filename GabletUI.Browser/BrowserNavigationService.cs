@@ -1,4 +1,4 @@
-﻿using GabletUI.Navigation;
+﻿using GabletUI.Services.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

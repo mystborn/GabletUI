@@ -6,17 +6,43 @@
              xmlns:views="using:GabletUI.Views"
              xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
              xmlns:local="clr-namespace:GabletUI"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:i="https://github.com/projektanker/icons.avalonia"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="450"
              x:Class="GabletUI.Views.ProfileView"
              x:DataType="vm:ProfileViewModel"
              VerticalContentAlignment="Center">
-    <rxui:RoutedViewHost Router="{Binding Router}"
-                         PageTransition="{x:Null}">
-        <rxui:RoutedViewHost.DefaultContent>
-            <views:SignInView />
-        </rxui:RoutedViewHost.DefaultContent>
-        <rxui:RoutedViewHost.ViewLocator>
-            <local:ViewLocator />
-        </rxui:RoutedViewHost.ViewLocator>
-    </rxui:RoutedViewHost>
+    <Grid>
+        <rxui:RoutedViewHost Router="{Binding Router}"
+                             PageTransition="{x:Null}"
+                             IsVisible="{Binding !Loading}">
+            <rxui:RoutedViewHost.DefaultContent>
+                <StackPanel VerticalAlignment="Center">
+                    <i:Icon
+                        Value="fa-spinner"
+                        Animation="Pulse"
+                        FontSize="100"/>
+                    <TextBlock
+                        Text="Loading"
+                        HorizontalAlignment="Center"
+                        FontSize="40"
+                        Margin="30" />
+                </StackPanel>
+            </rxui:RoutedViewHost.DefaultContent>
+            <rxui:RoutedViewHost.ViewLocator>
+                <local:ViewLocator />
+            </rxui:RoutedViewHost.ViewLocator>
+        </rxui:RoutedViewHost>
+        <StackPanel VerticalAlignment="Center"
+                    IsVisible="{Binding Loading}">
+            <i:Icon
+                Value="fa-spinner"
+                Animation="Pulse"
+                FontSize="100"/>
+            <TextBlock 
+                Text="Loading" 
+                HorizontalAlignment="Center"
+                FontSize="40"
+                Margin="30" />
+        </StackPanel>
+    </Grid>
 </UserControl>

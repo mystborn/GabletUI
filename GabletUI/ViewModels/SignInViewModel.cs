@@ -5,6 +5,8 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -54,24 +56,37 @@ namespace GabletUI.ViewModels
         }
 
         public ICommand SignIn { get; }
+        public ICommand SwitchToRegister { get; }
 
         public SignInViewModel(IScreen hostScreen)
         {
             HostScreen = hostScreen;
 
-            SignIn = ReactiveCommand.CreateFromTask(async () =>
+            var signIn = ReactiveCommand.CreateFromTask(async () =>
             {
-                var accountService = App.Services.GetService<IAccountService>();
+                var accountService = App.Services.GetService<IAccountService>()!;
                 try
                 {
-                    var result = await accountService.Login(Username, Password);
-                    { }
+                    await accountService.Login(Username, Password);
+                    await HostScreen.Router.NavigateAndReset.Execute(new AccountViewModel(HostScreen));
                 }
-                catch(Exception ex)
+                catch (GabletApiException ex)
                 {
-                    Error = ex.ToString();
+                    Error = $"Error {ex.Response.ErrorCode}: {ex.Response.ErrorMessage}";
+                }
+                catch (Exception ex)
+                {
+                    Error = $"Error: {ex}";
                 }
             });
+
+            SignIn = signIn;
+
+            SwitchToRegister = ReactiveCommand.Create(() =>
+            {
+                HostScreen.Router.NavigateAndReset.Execute(new RegisterViewModel(HostScreen));
+            },
+            signIn.IsExecuting.Select(executing => !executing));
         } 
     }
 }

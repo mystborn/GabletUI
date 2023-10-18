@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GabletUI.Navigation
+namespace GabletUI.Services.Navigation
 {
     public class DefaultNavigationService : INavigation
     {

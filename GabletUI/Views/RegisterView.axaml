@@ -2,7 +2,71 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="GabletUI.Views.RegisterView">
-  Welcome to Avalonia!
+             xmlns:vm="using:GabletUI.ViewModels"
+             xmlns:views="clr-namespace:GabletUI.Views"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
+             x:Class="GabletUI.Views.RegisterView"
+             x:DataType="vm:RegisterViewModel">
+    <Border Background="{DynamicResource SurfaceSectionColor}"
+              MaxWidth="400"
+              CornerRadius="20"
+            VerticalAlignment="Center">
+        <StackPanel Margin="20">
+            <TextBlock Text="Register"
+                       FontSize="26"
+                       Margin="0 5" />
+            <TextBlock Text="Username:"
+                       FontSize="20"
+                       Margin="0 5"/>
+            <TextBox Watermark="Username"
+                     Text="{Binding Username}"
+                     FontSize="20"
+                     Margin="0 5"/>
+            <TextBlock Text="Email:"
+                       FontSize="20"
+                       Margin="0 5"/>
+            <TextBox Watermark="Email"
+                     Text="{Binding Email}"
+                     FontSize="20"
+                     Margin="0 5"/>
+            <TextBlock Text="Password: "
+                       FontSize="20"
+                       Margin="0 5"/>
+            <TextBox Watermark="Password"
+                     Classes="revealPasswordButton"
+                     Text="{Binding Password}"
+                     PasswordChar="•"
+                     FontSize="20"
+                     Margin="0 5" />
+            <TextBlock Text="Confirm Password: "
+                       FontSize="20"
+                       Margin="0 5"/>
+            <TextBox Watermark="Confirm Password"
+                     Classes="revealPasswordButton"
+                     PasswordChar="•"
+                     Text="{Binding ConfirmPassword}"
+                     FontSize="20"
+                     Margin="0 5" />
+
+            <TextBlock
+                Text="{Binding GeneralError}"
+                Foreground="Red"
+                FontSize="16"
+                IsVisible="{Binding IsGeneralErrorVisible} "/>
+            <Button FontSize="20"
+                    HorizontalAlignment="Center"
+                    Margin="0 30"
+                    Padding="30 10"
+                    Command="{Binding Register}">
+                Register
+            </Button>
+            <Button Classes="link"
+                    Command="{Binding SwitchToSignIn}">
+                Already have an account?
+            </Button>
+            <Button Classes="link">
+                Forgot Password
+            </Button>
+        </StackPanel>
+    </Border>
 </UserControl>

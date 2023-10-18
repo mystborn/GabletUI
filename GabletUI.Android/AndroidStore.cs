@@ -1,6 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
-using GabletUI.Store;
+using GabletUI.Services.Store;
 using System;
 using System.Collections.Generic;
 using System.Linq;

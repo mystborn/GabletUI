@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GabletUI.Store
+namespace GabletUI.Services.Store
 {
     public class AuthStore
     {
@@ -28,7 +28,7 @@ namespace GabletUI.Store
             get => _accessToken;
             set
             {
-                if(value != _accessToken)
+                if (value != _accessToken)
                 {
                     _storage.Set(ACCESS_TOKEN, value);
                     _accessToken = value;
@@ -114,6 +114,16 @@ namespace GabletUI.Store
             _refreshExpires = storage.GetULong(REFRESH_EXPIRES);
             _username = storage.GetString(USERNAME);
             _userId = storage.GetInt(USER_ID);
+        }
+
+        public void Reset()
+        {
+            AccessToken = "";
+            RefreshToken = "";
+            LoginExpires = 0;
+            RefreshExpires = 0;
+            Username = "";
+            UserId = 0;
         }
     }
 }

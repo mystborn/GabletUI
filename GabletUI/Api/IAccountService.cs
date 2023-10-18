@@ -9,9 +9,9 @@ namespace GabletUI.Api
 {
     public interface IAccountService
     {
-        public Task<UserModel> Register(string username, string email, string password);
+        public Task Register(string username, string email, string password);
         public Task<bool> ValidateAccount(string token, string username);
-        public Task<UserModel> Login(string username, string password);
+        public Task Login(string username, string password);
         public Task Refresh(string refreshToken);
         public Task<string> Test();
     }

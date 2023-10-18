@@ -3,13 +3,15 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using GabletUI.Api;
 using GabletUI.Api.Accounts;
-using GabletUI.Navigation;
-using GabletUI.Store;
+using GabletUI.Services.Navigation;
+using GabletUI.Services.Store;
+using GabletUI.Services.Validation;
 using GabletUI.ViewModels;
 using GabletUI.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Projektanker.Icons.Avalonia;
 using Projektanker.Icons.Avalonia.FontAwesome;
+using Serilog;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
@@ -46,8 +48,20 @@ namespace GabletUI
             var services = new ServiceCollection();
 
             services
+                .AddLogging(builder =>
+                {
+                    var logger = new LoggerConfiguration()
+                        .MinimumLevel.Debug()
+                        .WriteTo.Console()
+                        //.WriteTo.Trace()
+                        .WriteTo.Debug(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3} {SourceContext}] {Message:lj}{NewLine}{Exception}")
+                        .CreateLogger();
+
+                    builder.AddSerilog(logger);
+                })
                 .AddSingleton<HttpClient>()
                 .AddSingleton<IStorage>(_storageMechanism)
+                .AddSingleton<IValidationService>(new RegexValidator())
                 .AddSingleton(_navigationService)
                 .AddSingleton<AuthStore>(provider => {
                     return new AuthStore(provider.GetService<IStorage>()!);

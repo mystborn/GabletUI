@@ -1,5 +1,5 @@
 ﻿using GabletUI.Api.Accounts;
-using GabletUI.Store;
+using GabletUI.Services.Store;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -158,7 +158,7 @@ namespace GabletUI.Api
                 {
                     error = JsonSerializer.Deserialize<ErrorResponse>(responseString)!;
                 }
-                catch (Exception ex)
+                catch
                 {
                     error = new ErrorResponse()
                     {

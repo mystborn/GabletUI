@@ -16,6 +16,9 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="Blue" />
         </Style>
+        <Style Selector="Button.link:disabled /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
         <Style Selector="Button.link">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="Blue" />
@@ -23,8 +26,12 @@
     </UserControl.Styles>
     <Border Background="{DynamicResource SurfaceSectionColor}"
             MaxWidth="400"
-            CornerRadius="20">
+            CornerRadius="20"
+            VerticalAlignment="Center">
         <StackPanel Margin="20">
+            <TextBlock Text="Sign In"
+                       FontSize="26"
+                       Margin="0 5" />
             <TextBlock Text="Username or Email:" 
                        FontSize="20"
                        Margin="0 5"/>
@@ -36,6 +43,8 @@
                        FontSize="20"
                        Margin="0 5"/>
             <TextBox Watermark="Password"
+                     Classes="revealPasswordButton"
+                     PasswordChar="•"
                      Text="{Binding Password}"
                      FontSize="20"
                      Margin="0 5" />
@@ -52,7 +61,8 @@
                     Command="{Binding SignIn}">
                 Sign In
             </Button>
-            <Button Classes="link">
+            <Button Classes="link"
+                    Command="{Binding SwitchToRegister}">
                 Register New  Account
             </Button>
             <Button Classes="link">
