@@ -5,9 +5,23 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace GabletUI.Api.Accounts.Requests
+namespace GabletUI.Api.Accounts.Requests;
+
+public class LoginRequest
 {
-    public record LoginRequest(
-        [property:JsonPropertyName("username")] string Username, 
-        [property:JsonPropertyName("password")] string Password);
+    [JsonPropertyName("username")]
+    public string Username { get; set; } = string.Empty;
+
+    [JsonPropertyName("password")]
+    public string Password { get; set; } = string.Empty;
+
+    public LoginRequest(string username, string password)
+    {
+        Username = username;
+        Password = password;
+    }
+
+    public LoginRequest()
+    {
+    }
 }
